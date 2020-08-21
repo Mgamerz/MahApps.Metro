@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -144,6 +145,76 @@ namespace MahApps.Metro.Controls.Dialogs
                                 }).Unwrap().Unwrap();
                         }));
                 }).Unwrap();
+        }
+
+        /// <summary>
+        /// Creates a ScrollDialog inside of the current window.
+        /// </summary>
+        /// <param name="window">The MetroWindow</param>
+        /// <param name="title">The title of the MessageDialog.</param>
+        /// <param name="topMessage">The top message contained within the MessageDialog.</param>
+        /// <param name="bottomMessage">The bottom message to display</param>
+        /// <param name="listItems">A list of strings to display in the scrollviewer</param>
+        /// <param name="style">The type of buttons to use.</param>
+        /// <param name="settings">Optional settings that override the global metro dialog settings.</param>
+        /// <returns>A task promising the result of which button was pressed.</returns>
+        public static Task<MessageDialogResult> ShowScrollMessageAsync(this MetroWindow window, string title, string topMessage, string bottomMessage, List<string> listItems, MessageDialogStyle style = MessageDialogStyle.Affirmative, MetroDialogSettings settings = null)
+        {
+            window.Dispatcher.VerifyAccess();
+            settings = settings ?? window.MetroDialogOptions;
+            return HandleOverlayOnShow(settings, window).ContinueWith(z =>
+            {
+                return (Task<MessageDialogResult>)window.Dispatcher.Invoke(new Func<Task<MessageDialogResult>>(() =>
+                {
+                    //create the dialog control
+                    var dialog = new ScrollDialog(window, settings)
+                    {
+                        TopMessage = topMessage,
+                        BottomMessage = bottomMessage,
+                        ListItems = listItems,
+                        Title = title,
+                        ButtonStyle = style
+                    };
+
+                    SetDialogFontSizes(settings, dialog);
+
+                    SizeChangedEventHandler sizeHandler = SetupAndOpenDialog(window, dialog);
+                    dialog.SizeChangedHandler = sizeHandler;
+
+                    return dialog.WaitForLoadAsync().ContinueWith(x =>
+                    {
+                        if (DialogOpened != null)
+                        {
+                            window.Dispatcher.BeginInvoke(new Action(() => DialogOpened(window, new DialogStateChangedEventArgs())));
+                        }
+
+                        return dialog.WaitForButtonPressAsync().ContinueWith(y =>
+                        {
+                            //once a button as been clicked, begin removing the dialog.
+
+                            dialog.OnClose();
+
+                            if (DialogClosed != null)
+                            {
+                                window.Dispatcher.BeginInvoke(new Action(() => DialogClosed(window, new DialogStateChangedEventArgs())));
+                            }
+
+                            Task closingTask = (Task)window.Dispatcher.Invoke(new Func<Task>(() => dialog.WaitForCloseAsync()));
+                            return closingTask.ContinueWith(a =>
+                            {
+                                return ((Task)window.Dispatcher.Invoke(new Func<Task>(() =>
+                                {
+                                    window.SizeChanged -= sizeHandler;
+
+                                    window.RemoveDialog(dialog);
+
+                                    return HandleOverlayOnHide(settings, window);
+                                }))).ContinueWith(y3 => y).Unwrap();
+                            });
+                        }).Unwrap();
+                    }).Unwrap().Unwrap();
+                }));
+            }).Unwrap();
         }
 
         /// <summary>
