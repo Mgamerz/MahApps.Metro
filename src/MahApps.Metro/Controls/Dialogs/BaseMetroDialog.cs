@@ -32,7 +32,7 @@ namespace MahApps.Metro.Controls.Dialogs
         private const string PART_Bottom = "PART_Bottom";
 
         /// <summary>Identifies the <see cref="DialogContentMargin"/> dependency property.</summary>
-        public static readonly DependencyProperty DialogContentMarginProperty = DependencyProperty.Register(nameof(DialogContentMargin), typeof(GridLength), typeof(BaseMetroDialog), new PropertyMetadata(new GridLength(25, GridUnitType.Star)));
+        public static readonly DependencyProperty DialogContentMarginProperty = DependencyProperty.Register(nameof(DialogContentMargin), typeof(GridLength), typeof(BaseMetroDialog), new PropertyMetadata(new GridLength(20, GridUnitType.Star)));
 
         /// <summary>
         /// Gets or sets the left and right margin for the dialog content.
@@ -44,7 +44,7 @@ namespace MahApps.Metro.Controls.Dialogs
         }
 
         /// <summary>Identifies the <see cref="DialogContentWidth"/> dependency property.</summary>
-        public static readonly DependencyProperty DialogContentWidthProperty = DependencyProperty.Register(nameof(DialogContentWidth), typeof(GridLength), typeof(BaseMetroDialog), new PropertyMetadata(new GridLength(50, GridUnitType.Star)));
+        public static readonly DependencyProperty DialogContentWidthProperty = DependencyProperty.Register(nameof(DialogContentWidth), typeof(GridLength), typeof(BaseMetroDialog), new PropertyMetadata(new GridLength(60, GridUnitType.Star)));
 
         /// <summary>
         /// Gets or sets the width for the dialog content.

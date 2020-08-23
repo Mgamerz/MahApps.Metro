@@ -35,10 +35,10 @@ namespace MahApps.Metro.Controls.Dialogs
                         {
                             //create the dialog control
                             LoginDialog dialog = new LoginDialog(window, settings)
-                                                 {
-                                                     Title = title,
-                                                     Message = message
-                                                 };
+                            {
+                                Title = title,
+                                Message = message
+                            };
 
                             SetDialogFontSizes(settings, dialog);
 
@@ -100,11 +100,11 @@ namespace MahApps.Metro.Controls.Dialogs
                         {
                             //create the dialog control
                             var dialog = new InputDialog(window, settings)
-                                         {
-                                             Title = title,
-                                             Message = message,
-                                             Input = settings.DefaultText,
-                                         };
+                            {
+                                Title = title,
+                                Message = message,
+                                Input = settings.DefaultText,
+                            };
 
                             SetDialogFontSizes(settings, dialog);
 
@@ -226,7 +226,7 @@ namespace MahApps.Metro.Controls.Dialogs
         /// <param name="style">The type of buttons to use.</param>
         /// <param name="settings">Optional settings that override the global metro dialog settings.</param>
         /// <returns>A task promising the result of which button was pressed.</returns>
-        public static Task<MessageDialogResult> ShowMessageAsync(this MetroWindow window, string title, string message, MessageDialogStyle style = MessageDialogStyle.Affirmative, MetroDialogSettings settings = null)
+        public static Task<MessageDialogResult> ShowMessageAsync(this MetroWindow window, string title, string message, MessageDialogStyle style = MessageDialogStyle.Affirmative, MetroDialogSettings settings = null, int ContentWidthPercent = 50)
         {
             window.Dispatcher.VerifyAccess();
             settings = settings ?? window.MetroDialogOptions;
@@ -236,11 +236,13 @@ namespace MahApps.Metro.Controls.Dialogs
                         {
                             //create the dialog control
                             var dialog = new MessageDialog(window, settings)
-                                         {
-                                             Message = message,
-                                             Title = title,
-                                             ButtonStyle = style
-                                         };
+                            {
+                                Message = message,
+                                Title = title,
+                                ButtonStyle = style,
+                                DialogContentMargin = new GridLength((100 - ContentWidthPercent) / 2, GridUnitType.Star),
+                                DialogContentWidth = new GridLength(ContentWidthPercent, GridUnitType.Star)
+                            };
 
                             SetDialogFontSizes(settings, dialog);
 
@@ -302,11 +304,11 @@ namespace MahApps.Metro.Controls.Dialogs
                         {
                             //create the dialog control
                             var dialog = new ProgressDialog(window, settings)
-                                         {
-                                             Title = title,
-                                             Message = message,
-                                             IsCancelable = isCancelable
-                                         };
+                            {
+                                Title = title,
+                                Message = message,
+                                IsCancelable = isCancelable
+                            };
 
                             SetDialogFontSizes(settings, dialog);
 
@@ -666,18 +668,18 @@ namespace MahApps.Metro.Controls.Dialogs
         private static MetroWindow CreateExternalWindow([CanBeNull] Window windowOwner = null)
         {
             var window = new MetroWindow
-                         {
-                             ShowInTaskbar = false,
-                             ShowActivated = true,
-                             Topmost = true,
-                             ResizeMode = ResizeMode.NoResize,
-                             WindowStyle = WindowStyle.None,
-                             WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                             ShowTitleBar = false,
-                             ShowCloseButton = false,
-                             WindowTransitionsEnabled = false,
-                             Owner = windowOwner
-                         };
+            {
+                ShowInTaskbar = false,
+                ShowActivated = true,
+                Topmost = true,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStyle = WindowStyle.None,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                ShowTitleBar = false,
+                ShowCloseButton = false,
+                WindowTransitionsEnabled = false,
+                Owner = windowOwner
+            };
 
             // If there is no Application then we need to add our default resources
             if (Application.Current is null)
@@ -812,10 +814,10 @@ namespace MahApps.Metro.Controls.Dialogs
 
             //create the dialog control
             LoginDialog dialog = new LoginDialog(win, settings)
-                                 {
-                                     Title = title,
-                                     Message = message
-                                 };
+            {
+                Title = title,
+                Message = message
+            };
 
             SetDialogFontSizes(settings, dialog);
 
@@ -850,11 +852,11 @@ namespace MahApps.Metro.Controls.Dialogs
 
             //create the dialog control
             var dialog = new InputDialog(win, settings)
-                         {
-                             Message = message,
-                             Title = title,
-                             Input = settings.DefaultText
-                         };
+            {
+                Message = message,
+                Title = title,
+                Input = settings.DefaultText
+            };
 
             SetDialogFontSizes(settings, dialog);
 
@@ -890,11 +892,11 @@ namespace MahApps.Metro.Controls.Dialogs
 
             //create the dialog control
             var dialog = new MessageDialog(win, settings)
-                         {
-                             Message = message,
-                             Title = title,
-                             ButtonStyle = style
-                         };
+            {
+                Message = message,
+                Title = title,
+                ButtonStyle = style
+            };
 
             SetDialogFontSizes(settings, dialog);
 

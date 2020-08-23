@@ -38,6 +38,7 @@
                                    Panel.ZIndex="5"
                                    Foreground="{Binding ProgressBarForeground, RelativeSource={RelativeSource AncestorType=Dialogs:ProgressDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
                                    Maximum="1.0"
-                                   Minimum="0.0" />
+                                   Minimum="0.0"
+                                   Height="10"/>
     </Dialogs:BaseMetroDialog.DialogBottom>
 </Dialogs:BaseMetroDialog>
