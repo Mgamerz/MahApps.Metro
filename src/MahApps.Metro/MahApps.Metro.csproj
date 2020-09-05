@@ -9,6 +9,8 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <Configurations>WPFDebug;WPFRelease</Configurations>
         <Platform>x64</Platform>
+        <Platforms>x64</Platforms>
+        <Configurations>WinDebug;WPFDebug</Configurations>
     </PropertyGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
