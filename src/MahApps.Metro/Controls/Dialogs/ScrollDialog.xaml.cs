@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using ControlzEx;
 
@@ -88,11 +89,17 @@ namespace MahApps.Metro.Controls.Dialogs
             get { return (MessageDialogStyle)this.GetValue(ButtonStyleProperty); }
             set { this.SetValue(ButtonStyleProperty, value); }
         }
-        public string ScrollViewerContent { get; private set; }
+        public FrameworkElement ScrollViewerContent { get; private set; }
 
         public List<string> ListItems
         {
-            set => ScrollViewerContent = string.Join("\n", value);
+            set => ScrollViewerContent = new TextBlock()
+            {
+                Text = string.Join("\n", value),
+                FontWeight = FontWeights.Bold,
+                FontSize = 14,
+                Margin = new Thickness(0, 10, 0, 10)
+            };
         }
 
         internal ScrollDialog()
