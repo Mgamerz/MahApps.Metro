@@ -7,7 +7,7 @@
         <RootNamespace>MahApps.Metro</RootNamespace>
         <DefaultItemExcludes>$(DefaultItemExcludes);**\*.Template.xaml</DefaultItemExcludes>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <Configurations>WPFDebug;WPFRelease</Configurations>
+        <Configurations>WPFDebug;WPFRelease;WinRelease</Configurations>
         <Platforms>x64</Platforms>
     </PropertyGroup>
 
@@ -42,7 +42,7 @@
         </PropertyGroup>
         <!-- Generate theme files -->
         <Message Text="$(XamlColorSchemeGeneratorExecutable)" />
-        <Message Text="$(MSBuildProjectDirectory)/Styles/Themes"/>
+        <Message Text="$(MSBuildProjectDirectory)/Styles/Themes" />
         <Exec Command="&quot;$(XamlColorSchemeGeneratorExecutable)&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Styles/Themes" />
         <!-- Combine xaml files -->
         <!-- <Exec Command="&quot;$(XamlCombinePath)&quot; &quot;Styles.txt&quot; &quot;Styles.xaml&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes" /> -->
