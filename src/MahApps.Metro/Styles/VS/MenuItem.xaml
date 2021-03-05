@@ -48,12 +48,13 @@
                                       Width="16"
                                       Height="16"
                                       Margin="1 1 0 0"
-                                      Data="{StaticResource Checkmark}"
+                                      Data="{DynamicResource Checkmark}"
                                       Fill="{DynamicResource MahApps.Brushes.Menu.Checkmark.Fill}"
                                       FlowDirection="LeftToRight" />
                             </Grid>
                             <ContentPresenter x:Name="Icon"
                                               Grid.Column="0"
+                                              HorizontalAlignment="Center"
                                               VerticalAlignment="Center"
                                               ContentSource="Icon" />
                             <ContentPresenter x:Name="HeaderHost"
@@ -90,15 +91,13 @@
                                             Background="{DynamicResource MahApps.Brushes.SubmenuItem.Background}"
                                             BorderBrush="{DynamicResource MahApps.Brushes.MenuSeparator.Border}"
                                             BorderThickness="1"
+                                            Effect="{DynamicResource MahApps.DropShadowEffect.Menu.VisualStudio}"
                                             SnapsToDevicePixels="True">
                                         <Grid x:Name="SubMenu"
                                               Margin="2"
                                               Grid.IsSharedSizeScope="True">
                                             <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                                         </Grid>
-                                        <Border.Effect>
-                                            <DropShadowEffect ShadowDepth="2" Color="{DynamicResource MahApps.Colors.MenuShadow}" />
-                                        </Border.Effect>
                                     </Border>
                                     <!--  Border 3  -->
                                     <Border x:Name="TransitionBorder"
